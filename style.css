@@ -1,0 +1,469 @@
+/* === Global Styles === */
+/* Basic font and layout for the entire site */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #222;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  
+  /* === Header and Navigation === */
+  /* Style for the top header bar */
+  header {
+    background: linear-gradient(135deg, #0d47a1 0%, #1565c0 100%);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    letter-spacing: 2px;
+  }
+  
+  /* Navigation bar layout */
+  nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  nav ul li {
+    margin: 0 15px;
+  }
+  
+  nav a {
+    text-decoration: none;
+    color: #ffeb3b; /* Bright comic yellow */
+    font-weight: bold;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  nav a.active, nav a:hover {
+    background-color: rgba(255, 235, 59, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* === Main Content === */
+  main {
+    padding: 20px;
+    animation: fadeIn 0.5s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Grid layout for comic books */
+  .book-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  /* Each comic card */
+  .book {
+    background-color: #ffffff;
+    border: 2px solid #0d47a1;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .book:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    border-color: #ffeb3b;
+  }
+  
+  .book::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+  
+  .book:hover::before {
+    left: 100%;
+  }
+  
+  .book img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+  
+  .book img[loading="lazy"] {
+    animation: none;
+  }
+  
+  .book:hover img {
+    transform: scale(1.05);
+  }
+  
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+  
+  .book .info {
+    margin-top: 10px;
+  }
+  
+  .book .price {
+    color: #d32f2f; /* Comic red for price */
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+  
+  .book h2, .book h3 {
+    color: #0d47a1;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+  }
+  
+  .book p {
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  /* Buttons used throughout site */
+  .buy-button, button, .checkout-btn {
+    display: inline-block;
+    padding: 12px 24px;
+    margin-top: 15px;
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(211, 47, 47, 0.3);
+  }
+  
+  button:hover, .checkout-btn:hover, .buy-button:hover {
+    background: linear-gradient(135deg, #b71c1c 0%, #d32f2f 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(211, 47, 47, 0.4);
+  }
+  
+  button:active, .checkout-btn:active, .buy-button:active {
+    transform: translateY(0);
+  }
+  
+  /* === Basket Page Layout === */
+  .basket-container {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  #basket-items {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  #basket-items li {
+    border-bottom: 1px solid #ccc;
+    padding: 10px 0;
+  }
+  
+  .basket-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  /* === Payment Form Styles === */
+  .payment-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .payment-form label {
+    display: block;
+    margin: 15px 0 8px;
+    font-weight: bold;
+    color: #0d47a1;
+  }
+  
+  .payment-form input, .payment-form textarea {
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+  }
+  
+  .payment-form input:focus, .payment-form textarea:focus {
+    outline: none;
+    border-color: #0d47a1;
+    box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.1);
+  }
+  
+  /* Contact form specific styles */
+  .form-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .form-message.success {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+    border: 1px solid #4caf50;
+  }
+  
+  .form-message.error {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ef5350;
+  }
+  
+  .form-message.info {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border: 1px solid #2196f3;
+  }
+  
+  /* === Success Page Message === */
+  .success {
+    text-align: center;
+    margin-top: 50px;
+    background: white;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 50px auto;
+  }
+  
+  .success h2 {
+    color: #4caf50;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .success p {
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+  }
+  
+  /* === Footer === */
+  footer {
+    background: linear-gradient(135deg, #222 0%, #444 100%);
+    color: #ccc;
+    padding: 30px;
+    text-align: center;
+    margin-top: 40px;
+    box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  footer a {
+    color: #ffeb3b;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+  }
+  
+  /* === Basket Icon === */
+  /* Ensures the basket icon stays small and aligned with text */
+  .basket-icon {
+    width: 18px;
+    height: 18px;
+    vertical-align: middle;
+    margin-right: 5px;
+  }
+  
+  /* === Payment Image === */
+  /* Scales the payment icons to fit screen and keeps them central */
+  .payment-icons {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .payment-icons img {
+    display: block;
+    margin: 0 auto;
+    max-width: 200px;
+    width: 80%;
+    height: auto;
+    border-radius: 8px;
+  }
+  
+  /* === About Page Box === */
+  /* Style box for the about us content */
+  .about-content {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 2px solid #0d47a1;
+    border-radius: 8px;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.05);
+    line-height: 1.6;
+  }
+  
+  .about-content h2 {
+    color: #0d47a1;
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+  }
+  
+  .about-content p {
+    margin-bottom: 15px;
+  }
+  
+  /* === Mobile Navigation Toggle Button === */
+  .menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    color: #ffeb3b;
+    background-color: #0d47a1;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  /* === Mobile Responsive Navigation Menu === */
+  @media screen and (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+      position: absolute;
+      right: 20px;
+      top: 20px;
+    }
+  
+    #nav-menu {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      background-color: rgba(13, 71, 161, 0.95);
+      padding: 20px 0;
+      margin: 10px 0 0 0;
+      border-radius: 8px;
+      backdrop-filter: blur(10px);
+    }
+  
+    #nav-menu.show {
+      display: flex;
+      animation: slideDown 0.3s ease;
+    }
+  
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  
+    #nav-menu li {
+      margin: 10px 0;
+      text-align: center;
+    }
+  
+    #nav-menu a {
+      color: #ffeb3b;
+      font-weight: bold;
+      text-decoration: none;
+      padding: 12px 20px;
+      border-radius: 20px;
+      display: block;
+      width: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    #nav-menu a:hover {
+      background-color: rgba(255, 235, 59, 0.2);
+    }
+  
+    .basket-buttons {
+      flex-direction: column;
+      gap: 10px;
+    }
+    
+    .book-list {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+    
+    .book {
+      padding: 15px;
+    }
+    
+    .book img {
+      height: 250px;
+    }
+    
+    header h1 {
+      font-size: 1.8rem;
+    }
+    
+    .payment-form {
+      margin: 20px;
+      padding: 20px;
+    }
+  }
+  

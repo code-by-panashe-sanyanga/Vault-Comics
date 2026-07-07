@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vault-Comics | Payment</title>
+    <!-- Linking the CSS so layout matches rest of the site -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- === Site Header + Navigation === -->
+    <header>
+      <h1>Payment</h1>
+      <nav>
+        <ul>
+          <!-- Simple nav menu for key pages -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="comics.html">Comics</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+          <li>
+            <!-- Shows current number of items in basket -->
+            <a href="basket.html">Basket (<span id="cart-count">0</span>)</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- === Main Payment Section === -->
+    <main>
+      <section class="payment-form">
+        <h2>Enter Your Card Details</h2>
+
+        <!-- Displays supported payment methods image -->
+        <div class="payment-icons">
+          <img
+            src="image/payments.jpg"
+            alt="Supported Payment Methods"
+            loading="eager"
+            decoding="async"
+          />
+        </div>
+
+        <!-- Card details form (not real payment gateway!) -->
+        <form id="cardForm">
+          <label for="cardNum">Card Number (Debit / Credit Card):</label>
+          <input
+            type="text"
+            id="cardNum"
+            required
+            placeholder="e.g. 5222123412341234"
+          />
+
+          <label for="expMonth">Expiry Month (MM):</label>
+          <input type="number" id="expMonth" required min="1" max="12" />
+
+          <label for="expYear">Expiry Year (YYYY):</label>
+          <input type="number" id="expYear" required min="2025" />
+
+          <label for="cvv">CVV Code:</label>
+          <input type="text" id="cvv" required placeholder="e.g. 123" />
+
+          <!-- Submit button to simulate payment -->
+          <button type="submit">Continue</button>
+        </form>
+
+        <!-- Will show feedback from server after form is submitted -->
+        <p id="responseMessage"></p>
+      </section>
+    </main>
+
+    <!-- === Footer === -->
+    <footer>
+      <p>&copy; 2025 VaultComics. All rights reserved.</p>
+    </footer>
+
+    <!-- === JavaScript Scripts === -->
+    <script src="image/script.js"></script>
+
+    <script>
+      // Updates cart count in top-right nav (reused from main site)
+      updateCartCount();
+
+      const form = document.getElementById("cardForm");
+      const message = document.getElementById("responseMessage");
+
+      // When user submits the form
+      form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Stops the page from refreshing
+
+        // Grabbing and cleaning user input
+        const cardNum = document.getElementById("cardNum").value.trim();
+        const expMonth = parseInt(
+          document.getElementById("expMonth").value.trim()
+        );
+        const expYear = parseInt(
+          document.getElementById("expYear").value.trim()
+        );
+        const cvv = document.getElementById("cvv").value.trim();
+
+        // Basic card validation using regular expressions
+        const cardRegex = /^5[1-5][0-9]{14}$/; // Mastercard only
+        const cvvRegex = /^[0-9]{3,4}$/;
+
+        // Check if card number matches expected Mastercard format
+        if (!cardRegex.test(cardNum)) {
+          alert("Card number must be 16 digits starting with 51–55.");
+          return;
+        }
+
+        // Check if card is not expired
+        const currentYear = new Date().getFullYear();
+        const currentMonth = new Date().getMonth() + 1;
+
+        if (
+          expYear < currentYear ||
+          (expYear === currentYear && expMonth < currentMonth)
+        ) {
+          alert("Card is expired.");
+          return;
+        }
+
+        // Check if CVV is valid
+        if (!cvvRegex.test(cvv)) {
+          alert("CVV must be 3 or 4 digits.");
+          return;
+        }
+
+        // Prepare the data to send to the fake API
+        const payload = {
+          master_card: Number(cardNum),
+          exp_year: expYear,
+          exp_month: expMonth,
+          cvv_code: cvv,
+        };
+
+        // Save last 4 digits to show on success page
+        const last4 = cardNum.slice(-4);
+        localStorage.setItem("lastFourDigits", last4);
+
+        // Send the data using fetch (POST request)
+        fetch("https://mudfoot.doc.stu.mmu.ac.uk/node/api/creditcard", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        })
+          .then((response) => {
+            if (!response.ok) throw new Error("Invalid card or server error.");
+            return response.json();
+          })
+          .then((data) => {
+            // Show success message and redirect
+            message.textContent = data.message;
+            setTimeout(() => {
+              window.location.href = "success.html";
+            }, 1500);
+          })
+          .catch((error) => {
+            // Something went wrong (either user error or server error)
+            message.textContent =
+              "Payment failed. Please check your card details.";
+          });
+      });
+    </script>
+  </body>
+</html>

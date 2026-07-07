@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>About Us | Vault-Comics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Link to external CSS file for consistent layout and styling across all pages -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- === Page Header + Navigation Menu === -->
+    <header>
+      <h1>VaultComics</h1>
+      <nav>
+        <!-- Menu toggle (for mobile view) - this allows the dropdown to work on smaller screens -->
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <!-- Main navigation links -->
+        <ul id="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="comics.html">Comics</a></li>
+          <li><a href="aboutus.html" class="active">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+          <li>
+            <!-- Basket icon that shows how many items the user has added -->
+            <a href="basket.html">
+              <img
+                src="image/basket.png"
+                class="basket-icon"
+                alt="Basket Icon"
+                loading="eager"
+                decoding="async"
+              />
+              Basket (<span id="cart-count">0</span>)
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- === Main Section: About Us Content === -->
+    <main>
+      <!-- This section contains a short introduction about the company -->
+      <section
+        class="about-content"
+        style="max-width: 800px; margin: auto; padding: 20px"
+      >
+        <h2>About Us</h2>
+
+        <!-- Paragraph 1: Quick intro to the business and where it's based -->
+        <p>
+          Welcome to <strong>Vault Comics</strong>, your home for classic comic
+          treasures. Based in the heart of Manchester, we collect and sell
+          vintage comics from legendary publishers like DC and Marvel.
+        </p>
+
+        <!-- Paragraph 2: What kind of customers the site helps -->
+        <p>
+          Whether you're hunting down rare editions or just starting your
+          collection, VaultComics is here to help. We’re passionate about
+          preserving the golden age of comics and sharing it with fans like you.
+        </p>
+
+        <!-- Paragraph 3: Encourages visitors to sell their comics too -->
+        <p>
+          Looking to sell your own collection? Get in touch — we also buy
+          vintage comics and love hearing from fellow collectors.
+        </p>
+      </section>
+    </main>
+
+    <!-- === Footer === -->
+    <footer>
+      <p>&copy; 2025 VaultComics. All rights reserved.</p>
+      <p>
+        <!-- Basic footer navigation for quick access to key pages -->
+        <a href="aboutus.html">About Us</a> |
+        <a href="contactus.html">Contact Us</a>
+      </p>
+    </footer>
+
+    <!-- === JavaScript === -->
+    <!-- This small function is used to show/hide the nav menu on mobile when the toggle is clicked -->
+    <script src="image/script.js"></script>
+  </body>
+</html>

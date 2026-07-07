@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vault-Comics | Payment Success</title>
+    <!-- Reuse shared CSS for consistent site design -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- === Header and Navigation === -->
+    <header>
+      <h1>Payment Complete</h1>
+      <nav>
+        <ul>
+          <!-- Basic navigation to other pages -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li>
+            <a href="basket.html">Basket (<span id="cart-count">0</span>)</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- === Confirmation Section === -->
+    <main>
+      <section class="success">
+        <h2>Thank you for your payment!</h2>
+        <p>Your transaction has been completed successfully.</p>
+        <!-- The card digits are shown as a confirmation -->
+        <p>
+          Your card ending in <strong id="last-four">****</strong> was charged.
+        </p>
+      </section>
+    </main>
+
+    <!-- === Site Footer === -->
+    <footer>
+      <p>&copy; 2025 VaultComics. All rights reserved.</p>
+    </footer>
+
+    <!-- === Scripts === -->
+    <script src="image/script.js"></script>
+    <script>
+      // Update the basket item count in the top nav
+      updateCartCount();
+
+      // Pull the last 4 digits of the card from localStorage
+      const lastDigits = localStorage.getItem("lastFourDigits") || "****";
+
+      // Display the digits in the success message (only last 4 shown)
+      document.getElementById(
+        "last-four"
+      ).textContent = `**** **** **** ${lastDigits}`;
+
+      // Optional: clear the cart now that payment is complete
+      localStorage.removeItem("cart");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vault-Comics | Basket</title>
+    <!-- Link to shared stylesheet for colours, fonts and layout -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- === Header and Navigation === -->
+    <header>
+      <h1>Your Basket</h1>
+      <nav>
+        <ul>
+          <!-- Basic navigation menu for easy access -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="comics.html">Comics</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+          <li>
+            <!-- Basket icon also shows number of items -->
+            <a href="basket.html">
+              <img
+                src="image/basket.png"
+                alt="Basket Icon"
+                class="basket-icon"
+                loading="eager"
+                decoding="async"
+              />
+              Basket (<span id="cart-count">0</span>)
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- === Main Basket Section === -->
+    <main>
+      <section class="basket-container">
+        <h2>Items in Your Basket</h2>
+
+        <!-- This list will display all the items currently in the basket -->
+        <ul id="basket-items"></ul>
+
+        <!-- Total price will update based on basket content -->
+        <p id="total-price"><strong>Total:</strong> £0.00</p>
+
+        <!-- Buttons to either clear the basket or go to checkout -->
+        <div class="basket-buttons">
+          <button onclick="clearCart()">Clear Basket</button>
+          <a href="pay.html" class="checkout-btn">Checkout</a>
+        </div>
+      </section>
+    </main>
+
+    <!-- === Footer === -->
+    <footer>
+      <p>&copy; 2025 VaultComics. All rights reserved.</p>
+    </footer>
+
+    <!-- === JavaScript Section === -->
+    <!-- Handles basket display and clearing -->
+    <script src="image/script.js"></script>
+    <script>
+      // Load basket items from localStorage (or start with empty array)
+      const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+      const itemList = document.getElementById("basket-items");
+      const totalPrice = document.getElementById("total-price");
+
+      let total = 0;
+
+      // Loop through each item in the basket and show it on the page
+      cart.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${item.title} - £${item.price.toFixed(2)}`;
+        itemList.appendChild(li);
+
+        // Add the item’s price to the total
+        total += item.price;
+      });
+
+      // Show the calculated total at the bottom
+      totalPrice.innerHTML = `<strong>Total:</strong> £${total.toFixed(2)}`;
+
+      // Function to completely clear the cart and refresh the page
+      function clearCart() {
+        if (confirm("Are you sure you want to empty your basket?")) {
+          localStorage.removeItem("cart"); // Remove from local storage
+          location.reload(); // Reload to reflect the empty basket
+        }
+      }
+
+      // Update the basket item count in the nav bar (function in script.js)
+      updateCartCount();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <title>All Comics | Vault-Comics</title>
+    <!-- Link to the shared stylesheet to keep the design consistent across all pages -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- === Header & Navigation Bar === -->
+    <header>
+      <h1>VaultComics</h1>
+      <nav>
+        <ul>
+          <!-- Navigation links to the main sections of the website -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="comics.html" class="active">Comics</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+          <li>
+            <!-- Basket link with live item count and small icon -->
+            <a href="basket.html">
+              <img
+                src="image/basket.png"
+                class="basket-icon"
+                alt="Basket Icon"
+                loading="eager"
+                decoding="async"
+                style="width: 1em; vertical-align: middle; margin-right: 5px"
+              />
+              Basket (<span id="cart-count">0</span>)
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- === Main Content Area: All Comics Display === -->
+    <main>
+      <h2 style="text-align: center">All Comics</h2>
+
+      <!-- Book grid container - each comic appears in its own 'book' div -->
+      <div class="book-list">
+        <!-- Comic: Batman vs Joker -->
+        <div class="book">
+          <img
+            src="image/batman-and-joker-comic-cover-i166717.jpg"
+            alt="Batman vs Joker"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Batman: Joker’s Return</h3>
+            <p>Classic Gotham chaos as Joker returns.</p>
+            <p class="price">£5.99</p>
+            <button onclick="addToCart('Batman: Joker’s Return', 5.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Comic: Thor -->
+        <div class="book">
+          <img src="image/627324.webp" alt="Thor" loading="lazy" decoding="async" />
+          <div class="info">
+            <h3>Thor: The Man-God</h3>
+            <p>Thunder meets mythology in this legendary issue.</p>
+            <p class="price">£5.99</p>
+            <button onclick="addToCart('Thor: The Man-God', 5.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Comic: Iron Man -->
+        <div class="book">
+          <img
+            src="image/29912MV.webp"
+            alt="Iron Man"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Iron Man: Hammer Time</h3>
+            <p>Tony Stark goes head-to-head with Hammer.</p>
+            <p class="price">£5.99</p>
+            <button onclick="addToCart('Iron Man: Hammer Time', 5.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Comic: Batman Wanted -->
+        <div class="book">
+          <img
+            src="image/22760a329107704160672cb89a1e93e2.jpg"
+            alt="Batman Wanted"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Batman: Wanted</h3>
+            <p>Framed and on the run — can Batman clear his name?</p>
+            <p class="price">£5.99</p>
+            <button onclick="addToCart('Batman: Wanted', 5.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Remaining comics don’t need extra descriptions not required -->
+        <div class="book">
+          <img
+            src="image/WonderWoman80thAnniversary100-PageSuperSpectacular_1-CoverG-MichaelChoSilverAgeVariant.webp"
+            alt="Wonder Woman Anniversary"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Wonder Woman Anniversary</h3>
+            <p class="price">£4.99</p>
+            <button onclick="addToCart('Wonder Woman Anniversary', 4.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <div class="book">
+          <img
+            src="image/s-l1200 (1).jpg"
+            alt="Hulk Monster Unleashed"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Hulk Monster Unleashed</h3>
+            <p class="price">£6.79</p>
+            <button onclick="addToCart('Hulk Monster Unleashed', 6.79)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <div class="book">
+          <img
+            src="image/il_570xN.3668140289_59ix.webp"
+            alt="Wolverine Limited Series"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Wolverine Limited Series</h3>
+            <p class="price">£5.89</p>
+            <button onclick="addToCart('Wolverine Limited Series', 5.89)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <div class="book">
+          <img
+            src="image/DCComics_12_71e49c3f-f121-4da7-91c7-8d59cf5d87e5.jpg"
+            alt="Superman #1"
+            loading="lazy"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Superman #1</h3>
+            <p class="price">£5.49</p>
+            <button onclick="addToCart('Superman #1', 5.49)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <div class="book">
+          <img src="image/102-1.jpg" alt="Hulk" loading="lazy" decoding="async" />
+          <div class="info">
+            <h3>Hulk</h3>
+            <p>The full origin story</p>
+            <p class="price">£5.69</p>
+            <button onclick="addToCart('Hulk', 5.69)">Add to Basket</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- === Footer Section === -->
+    <footer>
+      <p>&copy; 2025 VaultComics. All rights reserved.</p>
+      <p>
+        <!-- Quick access links to contact and about pages -->
+        <a href="aboutus.html">About Us</a> |
+        <a href="contactus.html">Contact Us</a>
+      </p>
+    </footer>
+
+    <!-- Link to shared JavaScript file that controls cart and other site functions -->
+    <script src="image/script.js"></script>
+  </body>
+</html>

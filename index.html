@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vault-Comics | Home</title>
+    <!-- Linking to the main stylesheet for consistent styling across all pages -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- === Website Header and Navigation === -->
+    <header>
+      <h1>VaultComics</h1>
+      <nav>
+        <!-- Mobile menu toggle for small screens - will show the ☰ icon -->
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <!-- Navigation menu for desktop and mobile -->
+        <ul id="nav-menu">
+          <!-- Navigation links to key areas of the site -->
+          <li><a href="index.html">Home</a></li>
+          <li><a href="comics.html">Comics</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contactus.html">Contact Us</a></li>
+          <li>
+            <!-- Basket link showing how many items are in the cart -->
+            <a href="basket.html">
+              <img
+                src="image/basket.png?v=2"
+                class="basket-icon"
+                alt="Basket Icon"
+                loading="eager"
+                decoding="async"
+              />
+              Basket (<span id="cart-count">0</span>)
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- === Main Section: Comic Display Grid === -->
+    <main>
+      <section class="book-list">
+        <!-- Each comic is displayed in a card-style layout using the .book class -->
+
+        <!-- Comic 1 -->
+        <div class="book">
+          <img
+            src="image/batman-and-joker-comic-cover-i166717.jpg?v=3"
+            alt="Batman vs Joker"
+            decoding="async"
+          />
+          <div class="info">
+            <h2>Batman: Joker’s Return</h2>
+            <p>Classic Gotham chaos as Joker returns.</p>
+            <p class="price">£5.99</p>
+            <!-- Button adds item to basket using JavaScript -->
+            <button onclick="addToCart('Batman: Joker’s Return', 5.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Comic 2 -->
+        <div class="book">
+          <img src="image/627324.webp?v=5" alt="Thor" decoding="async" />
+          <div class="info">
+            <h2>Thor: The Man-God</h2>
+            <p>Thunder meets mythology in this legendary issue.</p>
+            <p class="price">£5.99</p>
+            <button onclick="addToCart('Thor: The Man-God', 5.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Comic 3 -->
+        <div class="book">
+          <img src="image/29912MV.webp?v=5" alt="Iron Man" decoding="async" />
+          <div class="info">
+            <h2>Iron Man: Hammer Time</h2>
+            <p>Tony Stark goes head-to-head with Hammer.</p>
+            <p class="price">£5.99</p>
+            <button onclick="addToCart('Iron Man: Hammer Time', 5.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Comic 4 -->
+        <div class="book">
+          <img
+            src="image/22760a329107704160672cb89a1e93e2.jpg?v=5"
+            alt="Batman Wanted"
+            decoding="async"
+          />
+          <div class="info">
+            <h2>Batman: Wanted</h2>
+            <p>Framed and on the run — can Batman clear his name?</p>
+            <p class="price">£5.99</p>
+            <button onclick="addToCart('Batman: Wanted', 5.99)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Comic 5 -->
+        <div class="book">
+          <img
+            src="image/DCComics_12_71e49c3f-f121-4da7-91c7-8d59cf5d87e5.jpg?v=5"
+            alt="Superman #1"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Superman #1</h3>
+            <p class="price">£5.49</p>
+            <button onclick="addToCart('Superman #1', 5.49)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+
+        <!-- Comic 6 -->
+        <div class="book">
+          <img
+            src="image/il_570xN.3668140289_59ix.webp?v=5"
+            alt="Wolverine Limited Series"
+            decoding="async"
+          />
+          <div class="info">
+            <h3>Wolverine Limited Series</h3>
+            <p class="price">£5.89</p>
+            <button onclick="addToCart('Wolverine Limited Series', 5.89)">
+              Add to Basket
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- === Website Footer === -->
+    <footer>
+      <p>&copy; 2025 VaultComics. All rights reserved.</p>
+      <p>
+        <!-- Footer navigation makes it easy to find company info -->
+        <a href="aboutus.html">About Us</a> |
+        <a href="contactus.html">Contact Us</a>
+      </p>
+    </footer>
+
+    <!-- === JavaScript File === -->
+    <!-- Includes functions for the basket system and mobile menu toggle -->
+    <script src="script.js"></script>
+  </body>
+</html>

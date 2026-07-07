@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Contact Us | Vault-Comics</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Link to shared stylesheet to keep layout and colours consistent -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- === Header with Site Navigation === -->
+    <header>
+      <h1>VaultComics</h1>
+      <nav>
+        <!-- Toggle icon appears on mobile screens to open the menu -->
+        <div class="menu-toggle" onclick="toggleMenu()">☰</div>
+
+        <!-- Navigation menu -->
+        <ul id="nav-menu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="comics.html">Comics</a></li>
+          <li><a href="aboutus.html">About Us</a></li>
+          <li><a href="contactus.html" class="active">Contact Us</a></li>
+          <li>
+            <!-- Basket icon with live count of items -->
+            <a href="basket.html">
+              <img
+                src="image/basket.png"
+                class="basket-icon"
+                alt="Basket Icon"
+                loading="eager"
+                decoding="async"
+              />
+              Basket (<span id="cart-count">0</span>)
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- === Main Content Section === -->
+    <main>
+      <!-- Contact form area, kept narrow and centred for better readability -->
+      <section style="max-width: 600px; margin: auto; padding: 20px">
+        <h2>Contact Us</h2>
+
+        <!-- Brief explanation for users -->
+        <p>
+          If you have any questions or want to sell your comics, feel free to
+          contact us using the form below:
+        </p>
+
+        <!-- Contact form with email functionality -->
+        <form class="payment-form" id="contactForm">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="subject">Subject:</label>
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            placeholder="e.g., Question about comics"
+            required
+          />
+
+          <label for="message">Message:</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            placeholder="Tell us about your question or comics you'd like to sell..."
+            required
+          ></textarea>
+
+          <!-- Submit button with loading state -->
+          <button type="submit" id="submitBtn">
+            <span id="btnText">Send Message</span>
+            <span id="btnLoading" style="display: none">Sending...</span>
+          </button>
+        </form>
+
+        <!-- Success/Error message display -->
+        <div id="formMessage" class="form-message" style="display: none"></div>
+
+        <!-- Alternative contact methods -->
+        <div
+          style="
+            margin-top: 30px;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+          "
+        >
+          <h3>Alternative Contact Methods</h3>
+          <p>
+            <strong>Email:</strong>
+            <a href="mailto:contact@vaultcomics.com">contact@vaultcomics.com</a>
+          </p>
+          <p><strong>Phone:</strong> +44 161 XXX XXXX</p>
+          <p><strong>Address:</strong> Manchester, UK</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- === Footer with Quick Links === -->
+    <footer>
+      <p>&copy; 2025 VaultComics. All rights reserved.</p>
+      <p>
+        <a href="aboutus.html">About Us</a> |
+        <a href="contactus.html">Contact Us</a>
+      </p>
+    </footer>
+
+    <!-- === JavaScript === -->
+    <script src="image/script.js"></script>
+
+    <!-- Contact Form Email Functionality -->
+    <script>
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const formData = {
+            name: document.getElementById("name").value,
+            email: document.getElementById("email").value,
+            subject: document.getElementById("subject").value,
+            message: document.getElementById("message").value,
+          };
+
+          // Show loading state
+          showLoading(true);
+          hideMessage();
+
+          // Try multiple methods in order of preference
+          sendFormData(formData);
+        });
+
+      function showLoading(show) {
+        const btnText = document.getElementById("btnText");
+        const btnLoading = document.getElementById("btnLoading");
+        const submitBtn = document.getElementById("submitBtn");
+
+        if (show) {
+          btnText.style.display = "none";
+          btnLoading.style.display = "inline";
+          submitBtn.disabled = true;
+        } else {
+          btnText.style.display = "inline";
+          btnLoading.style.display = "none";
+          submitBtn.disabled = false;
+        }
+      }
+
+      function showMessage(message, type = "success") {
+        const messageDiv = document.getElementById("formMessage");
+        messageDiv.textContent = message;
+        messageDiv.className = `form-message ${type}`;
+        messageDiv.style.display = "block";
+
+        // Auto-hide after 5 seconds
+        setTimeout(() => {
+          hideMessage();
+        }, 5000);
+      }
+
+      function hideMessage() {
+        const messageDiv = document.getElementById("formMessage");
+        messageDiv.style.display = "none";
+        messageDiv.className = "form-message";
+      }
+
+      function sendFormData(formData) {
+        // For GitHub Pages, we'll use Formspree as the primary method
+        // Method 1: Try Formspree (works great with GitHub Pages)
+        sendFormspree(formData)
+          .catch(() => {
+            // Method 2: Try EmailJS if Formspree fails
+            if (typeof emailjs !== "undefined") {
+              return sendEmailJS(formData);
+            } else {
+              // Method 3: Fallback to mailto
+              return sendMailto(formData);
+            }
+          })
+          .catch(() => {
+            // Final fallback
+            sendMailto(formData);
+          });
+      }
+
+      function sendPHP(formData) {
+        return new Promise((resolve, reject) => {
+          const form = new FormData();
+          form.append("name", formData.name);
+          form.append("email", formData.email);
+          form.append("subject", formData.subject);
+          form.append("message", formData.message);
+
+          fetch("contact-form-handler.php", {
+            method: "POST",
+            body: form,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.success) {
+                showMessage(
+                  "Message sent successfully! We'll get back to you soon.",
+                  "success"
+                );
+                document.getElementById("contactForm").reset();
+                resolve(data);
+              } else {
+                throw new Error(data.error || "Failed to send message");
+              }
+            })
+            .catch((error) => {
+              console.error("PHP Error:", error);
+              reject(error);
+            })
+            .finally(() => {
+              showLoading(false);
+            });
+        });
+      }
+
+      function sendEmailJS(formData) {
+        // EmailJS configuration (you'll need to set this up)
+        emailjs
+          .send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
+            from_name: formData.name,
+            from_email: formData.email,
+            subject: formData.subject,
+            message: formData.message,
+            to_email: "your-email@vaultcomics.com", // Your business email
+          })
+          .then(function (response) {
+            showMessage(
+              "Message sent successfully! We'll get back to you soon.",
+              "success"
+            );
+            document.getElementById("contactForm").reset();
+          })
+          .catch(function (error) {
+            console.error("EmailJS Error:", error);
+            throw error; // Let the calling function handle the fallback
+          })
+          .finally(() => {
+            showLoading(false);
+          });
+      }
+
+      function sendMailto(formData) {
+        // Create mailto link with pre-filled content
+        const subject = encodeURIComponent(
+          `VaultComics Contact: ${formData.subject}`
+        );
+        const body = encodeURIComponent(
+          `Name: ${formData.name}\n` +
+            `Email: ${formData.email}\n\n` +
+            `Message:\n${formData.message}\n\n` +
+            `---\nSent from VaultComics Contact Form`
+        );
+
+        const mailtoLink = `mailto:contact@vaultcomics.com?subject=${subject}&body=${body}`;
+
+        // Try to open email client
+        try {
+          window.location.href = mailtoLink;
+          showMessage(
+            "Opening your email client... Please send the pre-filled email to contact us.",
+            "info"
+          );
+          document.getElementById("contactForm").reset();
+        } catch (error) {
+          console.error("Mailto Error:", error);
+          showMessage(
+            "Please email us directly at contact@vaultcomics.com",
+            "error"
+          );
+        }
+
+        showLoading(false);
+      }
+
+      // Formspree integration (works great with GitHub Pages)
+      function sendFormspree(formData) {
+        return new Promise((resolve, reject) => {
+          fetch("https://formspree.io/f/xvgqkkgr", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              name: formData.name,
+              email: formData.email,
+              subject: formData.subject,
+              message: formData.message,
+            }),
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.ok) {
+                showMessage(
+                  "Message sent successfully! We'll get back to you soon.",
+                  "success"
+                );
+                document.getElementById("contactForm").reset();
+                resolve(data);
+              } else {
+                throw new Error("Form submission failed");
+              }
+            })
+            .catch((error) => {
+              console.error("Formspree Error:", error);
+              reject(error);
+            })
+            .finally(() => {
+              showLoading(false);
+            });
+        });
+      }
+    </script>
+  </body>
+</html>
